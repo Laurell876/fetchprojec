@@ -4,20 +4,31 @@ import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'selection.dart';
+import 'matchesScreen.dart';
+
+
+//global variable
+int idHolder = 123;
+
 
 
 void main() => runApp(MaterialApp(
 
    routes: {
     '/': (context) => HomePage(),
-     '/selection': (context) => SelectionPage(),
+     '/selection': (context) => SelectionPage(id: idHolder),
    }
-
 
 ));
 
 
+
+
+
+
 class HomePage extends StatefulWidget {
+
+
   @override
   _HomePageState createState() => _HomePageState();
 }
@@ -25,24 +36,31 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
 
 
-  String placeholderImg = 'badge.png';
+
 
 
   Widget setImage(String url) {
     if (url != null) {
-      return CircleAvatar(
-        backgroundColor: Colors.tealAccent,
-        radius: 30,
-        backgroundImage: NetworkImage(url),
+      return Container(
+        height:40,
+        child: CachedNetworkImage(
+          imageUrl: url,
+          placeholder: (context, url) => new CircularProgressIndicator(),
+
+        ),
       );
     }else if (url == null){
-    return
-      Image.asset(
-        'badge.png',
-      height: 40,
-      width:40,
-    );
-  }
+      return Container(
+        height:40,
+        child: Icon(Icons.error),
+      );
+//        Image.asset(
+//          'badge.png',
+//          height: 40,
+//          width:40,
+//        );
+
+    }
   }
 
 
@@ -52,8 +70,11 @@ class _HomePageState extends State<HomePage> {
 
 
   //selection screen function
-  selectionScreen() {
+  selectionScreen(int id) {
     Navigator.pushNamed(context, '/selection');
+    setState(() {
+      idHolder = id;
+    });
   }
 
 
@@ -90,7 +111,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Teams'),
+        title: Text('ScoreBoard'),
         backgroundColor: Colors.tealAccent,
       ),
 
@@ -115,6 +136,9 @@ class _HomePageState extends State<HomePage> {
                   RaisedButton(
                     onPressed: () {
                       getData(searchInput.text);
+//                      setState(() {
+//                        nameHolder = searchInput.text;
+//                      });
                     },
                     child: Text(
                       'Search For Team',
@@ -139,7 +163,7 @@ class _HomePageState extends State<HomePage> {
 
                   child: Visibility(
                     child: GestureDetector(
-                      onTap: selectionScreen,
+                      onTap: () { selectionScreen(int.parse((userData[index]['idTeam']))); },
                       child: Card(
 
                         color: Colors.tealAccent,
@@ -154,9 +178,9 @@ class _HomePageState extends State<HomePage> {
                             mainAxisAlignment: MainAxisAlignment.start,
 
                             children: <Widget>[
-
                               //function that sets image of avatar
                               setImage(userData[index]['strTeamBadge']),
+
                               SizedBox(
                                 width: 40,
                               ),
