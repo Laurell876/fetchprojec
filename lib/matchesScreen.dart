@@ -6,59 +6,9 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 
-//class MatchesScreen extends StatelessWidget {
-//
-//  Map data;
-//  List userData;
-//
-//
-//  Future getData(String teamName) async {
-//    http.Response response = await http.get('https://www.thesportsdb.com/api/v1/json/1/eventslast.php?id=$idOfTeam');
-//    data = json.decode(response.body);
-//
-//    userData = data['teams'];
-//    //debugPrint(userData.toString());
-//  }
-//
-//
-//
-//
-//  Widget setImage2(String url) {
-//    if (url != null) {
-//      return Container(
-//        height:40,
-//        child: CachedNetworkImage(
-//          imageUrl: url,
-//          placeholder: (context, url) => new CircularProgressIndicator(),
-//        ),
-//      );
-//    }else if (url == null){
-//      return Container(
-//        height:40,
-//        child: Icon(Icons.error),
-//      );
-//
-//
-//    }
-//  }
-//
-//
-//
-//  MatchesScreen({this.idOfTeam});
-//  final int idOfTeam;
-//
-//
-//  @override
-//  Widget build(BuildContext context) {
-////    return C
-//  return Column(
-//    children: <Widget>[
-//      //setImage2()
-//
-//    ],
-//  );
-//  }
-//}
+  Map data;
+  List userData;
+
 
 
 
@@ -76,6 +26,10 @@ class MatchesScreen extends StatefulWidget {
 }
 
 class _MatchesScreenState extends State<MatchesScreen> {
+  _MatchesScreenState({this.id});
+  int id;
+
+
   Widget dateGetter(String d) {
     if (d!=null) {
       return Text(d);
@@ -101,8 +55,7 @@ class _MatchesScreenState extends State<MatchesScreen> {
 
 
 
-  _MatchesScreenState({this.id});
-  int id;
+
 
 
 
@@ -112,10 +65,11 @@ class _MatchesScreenState extends State<MatchesScreen> {
     super.initState();
 
 
+//    print(userDataList);
+
+
     Future getData(int idGetter) async {
       http.Response response = await http.get('https://www.thesportsdb.com/api/v1/json/1/eventslast.php?id=$idGetter');
-
-
 
       setState(() {
         data = json.decode(response.body);
@@ -137,14 +91,11 @@ class _MatchesScreenState extends State<MatchesScreen> {
 
     Future getData2(int idGetter) async {
       http.Response response = await http.get('https://www.thesportsdb.com/api/v1/json/1/eventsnext.php?id=$idGetter');
-
-
+      data2 = json.decode(response.body);
 
       setState(() {
-        data2 = json.decode(response.body);
         userData2 = data2['events'];
       });
-
       // print(userData);
       //print(userData[0]['strEvent']);
 
@@ -158,13 +109,12 @@ class _MatchesScreenState extends State<MatchesScreen> {
 
   @override
   Widget build(BuildContext context) {
+
     return SingleChildScrollView(
       child: Column(
         children: <Widget>[
-          Text('Past Matches', style: TextStyle(fontSize: 30),),
-          SizedBox(
-            height:10,
-          ),
+          Container(padding: EdgeInsets.all(3),child: Text('Past Matches', style: TextStyle(fontSize: 30),)),
+
           Divider(
             color: Colors.tealAccent,
           ),
@@ -175,16 +125,25 @@ class _MatchesScreenState extends State<MatchesScreen> {
               itemBuilder: (BuildContext   context, int index) {
                 return Container(
                   child: Column(
+
                     children: <Widget>[
 
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: <Widget>[
 
-                      Text(userData[index]['strEvent']),
-                      Text('${userData[index]['intHomeScore']} - ${userData[index]['intAwayScore']}'),
-                      dateGetter(userData[index]['strDate']),
+
+                          Text(userData[index]['strEvent']),
+                          Text('${userData[index]['intHomeScore']} - ${userData[index]['intAwayScore']}'),
+                          dateGetter(userData[index]['strDate']),
+
+                        ],
+                      ),
                       Divider(
                         color: Colors.tealAccent,
                       ),
                     ],
+
                   ),
 
                 );
@@ -197,10 +156,8 @@ class _MatchesScreenState extends State<MatchesScreen> {
 
 
 
-          Text('Upcoming Matches', style: TextStyle(fontSize: 30),),
-          SizedBox(
-            height:10,
-          ),
+          Container(padding: EdgeInsets.all(3),child: Text('Upcoming Matches', style: TextStyle(fontSize: 30),)),
+
           Divider(
             color: Colors.tealAccent,
           ),
@@ -212,11 +169,15 @@ class _MatchesScreenState extends State<MatchesScreen> {
                 return Container(
                   child: Column(
                     children: <Widget>[
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: <Widget>[
+                          Text(userData2[index]['strEvent']),
 
+                          dateGetter(userData2[index]['strDate']),
 
-                      Text(userData2[index]['strEvent']),
-
-                      dateGetter(userData2[index]['strDate']),
+                        ],
+                      ),
                       Divider(
                         color: Colors.tealAccent,
                       ),

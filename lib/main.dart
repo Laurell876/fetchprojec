@@ -10,6 +10,11 @@ import 'matchesScreen.dart';
 //global variable
 int idHolder = 123;
 
+List eventNameHolder;
+
+
+
+
 
 
 void main() => runApp(MaterialApp(
@@ -28,15 +33,45 @@ void main() => runApp(MaterialApp(
 
 class HomePage extends StatefulWidget {
 
-
   @override
   _HomePageState createState() => _HomePageState();
 }
 
+
+
+
 class _HomePageState extends State<HomePage> {
+  Map dataList;
+  List userDataList;
+
+  allFutureFunctions(int idForPrevMatch) {
+
+    //function to get list of previous matches, it needs the id of the team
+
+    //tested for id number, its working
+    //print(idForPrevMatch);
+
+    Future getData(int idGetter) async {
+      http.Response response = await http.get('https://www.thesportsdb.com/api/v1/json/1/eventslast.php?id=$idGetter');
+      dataList = json.decode(response.body);
+
+      setState(() {
+        userDataList = dataList['results'];
+      });
+
+      // print(userData);
+      //print(userData[0]['strEvent']);
+
+      //debugPrint(userData.toString());
+      print(dataList);
+
+    }
+    getData(idForPrevMatch);
+    //its working - data is being saved from function
+    print(userDataList[0]['strEvent']);
 
 
-
+  }
 
 
   Widget setImage(String url) {
@@ -70,10 +105,11 @@ class _HomePageState extends State<HomePage> {
 
 
   //selection screen function
-  selectionScreen(int id) {
+  selectionScreen(int id, nmEvent) {
     Navigator.pushNamed(context, '/selection');
     setState(() {
       idHolder = id;
+      eventNameHolder = nmEvent;
     });
   }
 
@@ -81,7 +117,7 @@ class _HomePageState extends State<HomePage> {
   final searchInput = TextEditingController();
 
 
-
+  //getting data for list of results
   Map data;
   List userData;
 
@@ -163,7 +199,11 @@ class _HomePageState extends State<HomePage> {
 
                   child: Visibility(
                     child: GestureDetector(
-                      onTap: () { selectionScreen(int.parse((userData[index]['idTeam']))); },
+                      onTap: () {
+
+                        //selectionScreen(int.parse(userData[index]['idTeam']), userDataList[0]['strEvent']);
+                        selectionScreen(int.parse(userData[index]['idTeam']), userDataList);
+                        },
                       child: Card(
 
                         color: Colors.tealAccent,

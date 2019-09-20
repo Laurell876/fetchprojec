@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'main.dart';
 import 'matchesScreen.dart';
+import 'infoScreen.dart';
+import 'list_of_matches.dart';
+import 'team_roster.dart';
 
 
 class SelectionPage extends StatefulWidget {
@@ -13,21 +16,62 @@ class SelectionPage extends StatefulWidget {
 }
 
 class _SelectionPageState extends State<SelectionPage> {
+  _SelectionPageState({this.id});
+  int id;
+
+
+
+
+
+
+  Widget get bottomNavigationBar {
+    return ClipRRect(
+      borderRadius: BorderRadius.only(
+        topRight: Radius.circular(40),
+        topLeft: Radius.circular(40),
+      ),
+      child: BottomNavigationBar(
+        items: [
+          BottomNavigationBarItem(
+            icon: Icon(const IconData(0xe900, fontFamily: 'soccerBall')),
+            title: Text('Matches'),
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.info_outline),
+            title: Text('Team Info'),
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.people),
+            title: Text('Team Roster'),
+          ),
+        ],
+//        unselectedItemColor: Colors.grey,
+//        selectedItemColor: Colors.black,
+        showUnselectedLabels: true,
+
+
+
+        currentIndex: _selectedIndex,
+        selectedItemColor: Colors.grey[900],
+        unselectedItemColor: Colors.grey[600],
+        onTap: _onItemTapped,
+        backgroundColor: Colors.tealAccent,
+      ),
+    );
+  }
 
 
   //this is used because value had to be defined in body
   Widget pickScreen(int sI, int idd) {
     if (sI==0) {
-      return  MatchesScreen(idOfTeam: idd);
-    }else if(sI!=0){
+      return  ListOfMatches(idOfTeam: idd);
+    }else if (sI==1) {
+      return InfoScreen(idOfTeam: idd);
+    }
+    else if(sI!=0){
       return _widgetOptions.elementAt(_selectedIndex-1);
     }
   }
-
-
-  _SelectionPageState({this.id});
-  int id;
-
 
 
 
@@ -51,8 +95,8 @@ class _SelectionPageState extends State<SelectionPage> {
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
-
     });
+
   }
 
 
@@ -75,27 +119,8 @@ class _SelectionPageState extends State<SelectionPage> {
 
 
 
-      bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(const IconData(0xe900, fontFamily: 'soccerBall')),
-            title: Text('Matches'),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.info_outline),
-            title: Text('Team Info'),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.people),
-            title: Text('Team Roster'),
-          ),
-        ],
-        currentIndex: _selectedIndex,
-        selectedItemColor: Colors.grey[900],
-        unselectedItemColor: Colors.grey[600],
-        onTap: _onItemTapped,
-        backgroundColor: Colors.tealAccent,
-      ),
+      bottomNavigationBar: bottomNavigationBar,
+
     );
   }
 }
