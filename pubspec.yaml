@@ -17,6 +17,7 @@ environment:
   sdk: ">=2.1.0 <3.0.0"
 
 dependencies:
+  url_launcher: ^5.0.2
   flutter_image: ^1.0.0
   loading: ^1.0.1
 
@@ -55,6 +56,11 @@ flutter:
     - badge3.png
     - badge.png
     - badge1.png
+    - assets/stadium.jpg
+    - assets/icon-facebook.png
+
+    - assets/ig.png
+    - assets/twitter.png
 
 
   # An image asset can refer to one or more resolution-specific "variants", see

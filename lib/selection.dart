@@ -68,8 +68,8 @@ class _SelectionPageState extends State<SelectionPage> {
     }else if (sI==1) {
       return InfoScreen(idOfTeam: idd);
     }
-    else if(sI!=0){
-      return _widgetOptions.elementAt(_selectedIndex-1);
+    else if(sI==2){
+      return TeamRoster(idOfTeam: idd);
     }
   }
 

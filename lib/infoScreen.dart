@@ -53,6 +53,31 @@ class _InfoScreenState extends State<InfoScreen> {
     }
   }
 
+  Widget setImageSM(String url) {
+    if (url != null) {
+      return Container(
+        height: 50,
+
+          child: Image(
+
+            image: AssetImage(url),
+          ),
+
+      );
+    }else if (url == null){
+      return Container(
+        height:20,
+        child: Icon(Icons.error),
+      );
+//        Image.asset(
+//          'badge.png',
+//          height: 40,
+//          width:40,
+//        );
+
+    }
+  }
+
   Future<List<Team>> _getTeam(int idToGenerate) async{
     var data = await http.get ('https://www.thesportsdb.com/api/v1/json/1/lookupteam.php?id=$idToGenerate');
     var jsonData = json.decode(data.body);
@@ -81,7 +106,7 @@ class _InfoScreenState extends State<InfoScreen> {
           if(snapshot.data == null) {
             return Container(
               child: Center(
-                child: Text('Loading...'),
+                child: CircularProgressIndicator(),
               ),
             );
           }
@@ -152,18 +177,8 @@ class _InfoScreenState extends State<InfoScreen> {
                               Text(snapshot.data[index].stadiumName),
                             ],
                           ),
-                          SizedBox(
-                            height:20,
-                          ),
 
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: <Widget>[
-                              Text("Alternative Name: "),
-                              Text(snapshot.data[index].altName),
-                            ],
 
-                          ),
                           SizedBox(
                             height:40,
                           ),
@@ -183,6 +198,29 @@ class _InfoScreenState extends State<InfoScreen> {
                             height:20,
                           ),
                           setImage(snapshot.data[index].jersey),
+                          SizedBox(
+                            height:20,
+                          ),
+
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Card(
+                              color: Colors.tealAccent,
+                              child: Padding(
+                                padding: const EdgeInsets.all(15.0),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: <Widget>[
+                                    setImageSM('assets/icon-facebook.png'),
+                                    setImageSM('assets/ig.png'),
+                                    setImageSM('assets/twitter.png'),
+                                  ],
+
+                                ),
+                              ),
+                            ),
+                          ),
+
 
 
                         ],

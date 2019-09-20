@@ -152,90 +152,107 @@ class _HomePageState extends State<HomePage> {
       ),
 
 
-      body: SingleChildScrollView(
+      body: Stack(
+        children: <Widget>[
+//          Container(
+//            decoration: new BoxDecoration(
+//              image: new DecorationImage(
+//                image: new AssetImage('assets/stadium.jpg'),
+//                  fit: BoxFit.cover,
+//                ),
+//
+//              ),
+//            ),
 
-        child: Column(
 
-          children: <Widget>[
+          SingleChildScrollView(
 
-            Container(
-              padding: EdgeInsets.all(20),
-              child: Column(
-                children: <Widget>[
-                  TextField(
-                    controller: searchInput,
-                    decoration: InputDecoration(
-                      labelText: 'Team Name',
+            child: Column(
 
-                    ),
-                  ),
-                  RaisedButton(
-                    onPressed: () {
-                      getData(searchInput.text);
+              children: <Widget>[
+
+                Container(
+                  padding: EdgeInsets.all(20),
+                  child: Column(
+                    children: <Widget>[
+                      TextField(
+
+                        controller: searchInput,
+                        decoration: InputDecoration(
+                          labelText: 'Team Name',
+
+                        ),
+                      ),
+                      RaisedButton(
+                        onPressed: () {
+                          getData(searchInput.text);
 //                      setState(() {
 //                        nameHolder = searchInput.text;
 //                      });
-                    },
-                    child: Text(
-                      'Search For Team',
-                      style: TextStyle(
-                        color: Colors.blue,
-                      ),
-
-                    ),
-                  ),
-
-                ],
-
-              ),
-
-            ),
-            ListView.builder(
-                scrollDirection: Axis.vertical,
-                shrinkWrap: true,
-              itemCount: userData == null ? 0: userData.length,
-              itemBuilder: (BuildContext   context, int index) {
-                return Container(
-
-                  child: Visibility(
-                    child: GestureDetector(
-                      onTap: () {
-
-                        //selectionScreen(int.parse(userData[index]['idTeam']), userDataList[0]['strEvent']);
-                        selectionScreen(int.parse(userData[index]['idTeam']), userDataList);
                         },
-                      child: Card(
-
-                        color: Colors.tealAccent,
-                        elevation: 5,
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 5,
-                            vertical: 10,
+                        child: Text(
+                          'Search For Team',
+                          style: TextStyle(
+                            color: Colors.blue,
                           ),
-                          child: Row(
 
-                            mainAxisAlignment: MainAxisAlignment.start,
-
-                            children: <Widget>[
-                              //function that sets image of avatar
-                              setImage(userData[index]['strTeamBadge']),
-
-                              SizedBox(
-                                width: 40,
-                              ),
-                              Text(userData[index]['strTeam']),
-                            ],
-                          ),
                         ),
                       ),
-                    ),
+
+                    ],
+
                   ),
-                );
-              }
-    ),
-          ],
-        ),
+
+                ),
+                ListView.builder(
+                    scrollDirection: Axis.vertical,
+                    shrinkWrap: true,
+                    itemCount: userData == null ? 0: userData.length,
+                    itemBuilder: (BuildContext   context, int index) {
+                      return Container(
+
+                        child: Visibility(
+                          child: GestureDetector(
+                            onTap: () {
+
+                              //selectionScreen(int.parse(userData[index]['idTeam']), userDataList[0]['strEvent']);
+                              selectionScreen(int.parse(userData[index]['idTeam']), userDataList);
+                            },
+                            child: Card(
+
+                              color: Colors.tealAccent,
+                              elevation: 5,
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 5,
+                                  vertical: 10,
+                                ),
+                                child: Row(
+
+                                  mainAxisAlignment: MainAxisAlignment.start,
+
+                                  children: <Widget>[
+                                    //function that sets image of avatar
+                                    setImage(userData[index]['strTeamBadge']),
+
+                                    SizedBox(
+                                      width: 40,
+                                    ),
+                                    Text(userData[index]['strTeam']),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      );
+                    }
+                ),
+              ],
+            ),
+          ),
+        ],
+
       ),
     );
   }

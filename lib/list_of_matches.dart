@@ -9,6 +9,7 @@ import 'dart:async';
 
 
 
+
 class ListOfMatches extends StatefulWidget {
   ListOfMatches({this.idOfTeam});
   int idOfTeam;
@@ -70,106 +71,112 @@ class _ListOfMatchesState extends State<ListOfMatches> with AutomaticKeepAliveCl
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-          children: <Widget>[
+    return Padding(
+      padding: const EdgeInsets.symmetric(
+        horizontal: 40,
+      ),
+      child: Column(
+            children: <Widget>[
 
-            Container(padding: EdgeInsets.all(10),child: Text('Previous Matches')),
-            Divider(
-              color: Colors.tealAccent,
-            ),
-            Container(
-              child: FutureBuilder(
-                future: _getPrevMatches(idOfTeam),
-                builder: (BuildContext context, AsyncSnapshot snapshot) {
-
-
-
-                  if(snapshot.data == null ) {
-                    return Center(
-                        child: Column(
-                          children: <Widget>[
-
-                            Text('Loading...'),
-                            Divider(
-                              color: Colors.tealAccent,
-                            ),
-                          ],
-                        ),
-                    );
-                  }
-                  else {
-                    return ListView.builder(
-                        scrollDirection: Axis.vertical,
-                        shrinkWrap: true,
-                        itemCount: snapshot.data.length,
-                        itemBuilder: (BuildContext context, int index) {
-
-                        return Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: <Widget>[
-                                Text(snapshot.data[index].eventPrev),
-                                Text('${snapshot.data[index].homeScorePrev} - ${snapshot.data[index].awayScorePrev}     (home - away)'),
-                              ],
-
-                            ),
-                            Text(snapshot.data[index].datePrev),
-                            Divider(
-                              color: Colors.tealAccent,
-                            ),
-                          ],
-
-                        );
-                        }
-                    );
-                  }
-                },
+              Container(padding: EdgeInsets.all(10),child: Text('Previous Matches')),
+              Divider(
+                color: Colors.tealAccent,
               ),
-            ),
+              Container(
+                child: FutureBuilder(
+                  future: _getPrevMatches(idOfTeam),
+                  builder: (BuildContext context, AsyncSnapshot snapshot) {
 
-            Column(
-              children: <Widget>[
-                Container(padding: EdgeInsets.all(10),child: Text('UpComing Matches')),
-                Divider(
-                  color: Colors.tealAccent,
-                ),
-                Container(
-                  child: FutureBuilder(
-                    future: _getNextMatches(idOfTeam),
-                    builder: (BuildContext cxt, AsyncSnapshot snap) {
 
-                      if (snap.data == null ) {
-                        return Center(child: Text('Loading...'));
-                      }
-                      else {
-                        return ListView.builder(
-                            itemCount: snap.data.length,
+
+                    if(snapshot.data == null ) {
+                      return Center(
+                          child: Column(
+                            children: <Widget>[
+
+                              CircularProgressIndicator(),
+                              Divider(
+                                color: Colors.tealAccent,
+                              ),
+                            ],
+                          ),
+                      );
+                    }
+                    else {
+                      return ListView.builder(
                           scrollDirection: Axis.vertical,
                           shrinkWrap: true,
-                          itemBuilder: (BuildContext cxt, int indx) {
-                              return Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: <Widget>[
-                                  Text(snap.data[indx].eventNext),
-                                  Text(snap.data[indx].dateNext),
-                                  Divider(
-                                    color: Colors.tealAccent,
-                                  ),
-                                ],
-                              );
-                        }
-                        );
-                      }
-                    }
-                  ),
-                ),
-              ],
-            ),
+                          itemCount: snapshot.data.length,
+                          itemBuilder: (BuildContext context, int index) {
 
-          ],
-        );
+                          return Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: <Widget>[
+                                  Text(snapshot.data[index].eventPrev),
+
+                                  Text('${snapshot.data[index].homeScorePrev} - ${snapshot.data[index].awayScorePrev}     (home - away)'),
+                                ],
+
+                              ),
+                              Text(snapshot.data[index].datePrev),
+                              Divider(
+                                color: Colors.tealAccent,
+                              ),
+                            ],
+
+                          );
+                          }
+                      );
+                    }
+                  },
+                ),
+              ),
+
+              Column(
+                children: <Widget>[
+                  Container(padding: EdgeInsets.all(10),child: Text('UpComing Matches')),
+                  Divider(
+                    color: Colors.tealAccent,
+                  ),
+                  Container(
+                    child: FutureBuilder(
+                      future: _getNextMatches(idOfTeam),
+                      builder: (BuildContext cxt, AsyncSnapshot snap) {
+
+                        if (snap.data == null ) {
+                          return Center(child: CircularProgressIndicator(),);
+                        }
+                        else {
+                          return ListView.builder(
+                              itemCount: snap.data.length,
+                            scrollDirection: Axis.vertical,
+                            shrinkWrap: true,
+                            itemBuilder: (BuildContext cxt, int indx) {
+                                return Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: <Widget>[
+                                    Text(snap.data[indx].eventNext),
+                                    Text(snap.data[indx].dateNext),
+                                    Divider(
+                                      color: Colors.tealAccent,
+                                    ),
+                                  ],
+                                );
+                          }
+                          );
+                        }
+                      }
+                    ),
+                  ),
+                ],
+              ),
+
+            ],
+          ),
+    );
 
 
   }
