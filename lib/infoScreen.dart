@@ -6,6 +6,8 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'dart:async';
+import 'frontPage.dart';
+import 'search Results.dart';
 
 
 
@@ -13,17 +15,21 @@ import 'dart:async';
 
 
 class InfoScreen extends StatefulWidget {
-  InfoScreen({this.idOfTeam});
+  InfoScreen({this.idOfTeam, this.infoSrList});
   int idOfTeam;
+  Future<List<Team>> infoSrList;
+
+
 
   @override
-  _InfoScreenState createState() => _InfoScreenState(idOfTeam: idOfTeam);
+  _InfoScreenState createState() => _InfoScreenState(idOfTeam: idOfTeam, infoSrList: infoSrList);
 }
 
 
 class _InfoScreenState extends State<InfoScreen> {
-  _InfoScreenState({this.idOfTeam});
+  _InfoScreenState({this.idOfTeam, this.infoSrList});
   int idOfTeam;
+  Future<List<Team>> infoSrList;
 
 
   Widget setImage(String url) {
@@ -69,30 +75,8 @@ class _InfoScreenState extends State<InfoScreen> {
         height:20,
         child: Icon(Icons.error),
       );
-//        Image.asset(
-//          'badge.png',
-//          height: 40,
-//          width:40,
-//        );
 
     }
-  }
-
-  Future<List<Team>> _getTeam(int idToGenerate) async{
-    var data = await http.get ('https://www.thesportsdb.com/api/v1/json/1/lookupteam.php?id=$idToGenerate');
-    var jsonData = json.decode(data.body);
-    var listData = jsonData['teams'];
-    List<Team> teams = [];
-
-    for (var t in listData) {
-      Team teamObject = Team(t['strTeamBadge'], t['strTeam'], t['strAlternate'],t['strLeague'], t['strCountry'], t['strStadium'], t['strStadiumThumb'],
-          t['strTeamJersey'], t['strFacebook'], t['Twitter'], t['strInstagram']);
-      teams.add(teamObject);
-
-    }
-    print(teams.length);
-    return teams;
-
   }
 
 
@@ -100,7 +84,7 @@ class _InfoScreenState extends State<InfoScreen> {
   Widget build(BuildContext context) {
     return Container(
       child: FutureBuilder(
-        future: _getTeam(idOfTeam),
+        future: infoSrList,
         builder: (BuildContext context, AsyncSnapshot snapshot) {
 
           if(snapshot.data == null) {
@@ -237,22 +221,4 @@ class _InfoScreenState extends State<InfoScreen> {
     );
 
   }
-}
-
-class Team{
-  final String badge;
-  final String name;
-  final String altName;
-  final String league;
-  final String country;
-  //final String year;
-  final String stadiumName;
-  final String stadiumPic;
-  final String jersey;
-  final String facebook;
-  final String twitter;
-  final String instagram;
-
-  Team(this.badge, this.name, this.altName, this.league, this.country,  this.stadiumName,
-      this.stadiumPic, this.jersey, this.facebook, this.twitter, this.instagram);
 }

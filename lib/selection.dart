@@ -4,22 +4,34 @@ import 'matchesScreen.dart';
 import 'infoScreen.dart';
 import 'list_of_matches.dart';
 import 'team_roster.dart';
+import 'frontPage.dart';
+import 'search Results.dart';
 
 
 class SelectionPage extends StatefulWidget {
 
-  SelectionPage({this.id});
+  SelectionPage({this.id, this.infoScrList, this.infoPlList, this.infoPMatches, this.infoNMatches});
   int id;
+  Future<List<Team>> infoScrList;
+  Future<List<Player>> infoPlList;
+
+  Future<List<nextMatches>> infoNMatches;
+
+  Future<List<previousMatches>> infoPMatches;
 
   @override
-  _SelectionPageState createState() => _SelectionPageState(id: this.id);
+  _SelectionPageState createState() => _SelectionPageState(id: this.id, infoScrList: infoScrList, infoPlList: infoPlList, infoNMatches: infoNMatches, infoPMatches: infoPMatches);
 }
 
 class _SelectionPageState extends State<SelectionPage> {
-  _SelectionPageState({this.id});
+  _SelectionPageState({this.id, this.infoScrList, this.infoPlList, this.infoPMatches, this.infoNMatches});
   int id;
+  Future<List<Team>> infoScrList;
+  Future<List<Player>> infoPlList;
 
+  Future<List<nextMatches>> infoNMatches;
 
+  Future<List<previousMatches>> infoPMatches;
 
 
 
@@ -52,10 +64,10 @@ class _SelectionPageState extends State<SelectionPage> {
 
 
         currentIndex: _selectedIndex,
-        selectedItemColor: Colors.grey[900],
-        unselectedItemColor: Colors.grey[600],
+        selectedItemColor: Colors.white,
+        unselectedItemColor: Colors.black,
         onTap: _onItemTapped,
-        backgroundColor: Colors.tealAccent,
+        backgroundColor: Color(0xff18a0ff),
       ),
     );
   }
@@ -64,12 +76,12 @@ class _SelectionPageState extends State<SelectionPage> {
   //this is used because value had to be defined in body
   Widget pickScreen(int sI, int idd) {
     if (sI==0) {
-      return  ListOfMatches(idOfTeam: idd);
+      return  ListOfMatches(idOfTeam: idd, infoPrMatches: infoPMatches, infoNxMatches: infoNMatches);
     }else if (sI==1) {
-      return InfoScreen(idOfTeam: idd);
+      return InfoScreen(idOfTeam: idd, infoSrList: infoScrList);
     }
     else if(sI==2){
-      return TeamRoster(idOfTeam: idd);
+      return TeamRoster(idOfTeam: idd, infoPList: infoPlList);
     }
   }
 
@@ -80,23 +92,19 @@ class _SelectionPageState extends State<SelectionPage> {
   int _selectedIndex = 0;
 
 
-  List<Widget> _widgetOptions = <Widget>[
-    //MatchesScreen(nameOfTeam: name),
-    Text(
-      'Index 1: Business',
-
-    ),
-    Text(
-      'Index 2: School',
-    ),
-  ];
-
 
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
     });
 
+  }
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    print('hi');
+    print(infoScrList);
   }
 
 
@@ -107,12 +115,15 @@ class _SelectionPageState extends State<SelectionPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-            'ScoreBoard',
+            'SCOREBOARD',
+
           style: TextStyle(
-            color: Colors.grey[600],
+            fontFamily: 'Vibes',
+            fontSize: 40,
+            color: Colors.white,
           ),
         ),
-        backgroundColor: Colors.tealAccent,
+        backgroundColor: Color(0xff18a0ff),
         centerTitle: true,
       ),
       body: pickScreen(_selectedIndex, id),
@@ -124,3 +135,6 @@ class _SelectionPageState extends State<SelectionPage> {
     );
   }
 }
+
+
+

@@ -6,20 +6,24 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'dart:async';
 import 'player_page.dart';
+import 'search Results.dart';
+import 'frontPage.dart';
 
 
 class TeamRoster extends StatefulWidget {
-  TeamRoster({this.idOfTeam});
+  TeamRoster({this.idOfTeam, this.infoPList});
   int idOfTeam;
+  Future<List<Player>> infoPList;
 
 
   @override
-  _TeamRosterState createState() => _TeamRosterState(idOfTeam: idOfTeam);
+  _TeamRosterState createState() => _TeamRosterState(idOfTeam: idOfTeam, infoPList: infoPList);
 }
 
 class _TeamRosterState extends State<TeamRoster> {
-  _TeamRosterState({this.idOfTeam});
+  _TeamRosterState({this.idOfTeam, this.infoPList});
   int idOfTeam;
+  Future<List<Player>> infoPList;
 
 
   Widget setImage(String url) {
@@ -40,11 +44,6 @@ class _TeamRosterState extends State<TeamRoster> {
         height:20,
         child: Icon(Icons.error),
       );
-//        Image.asset(
-//          'badge.png',
-//          height: 40,
-//          width:40,
-//        );
 
     }
   }
@@ -52,27 +51,13 @@ class _TeamRosterState extends State<TeamRoster> {
 
 
 
-  Future<List<Player>> _getPlayer(int idToGenerate)async {
-    var data = await http.get('https://www.thesportsdb.com/api/v1/json/1/lookup_all_players.php?id=$idToGenerate');
-    var jsonData = json.decode(data.body);
-    var playerData = jsonData['player'];
-    List<Player> players = [];
-
-    for (var p in playerData) {
-      Player playerObject = Player(p['strThumb'],p['strPlayer'], p['strPosition'],p['idPlayer'],p['strTeam'], p['strNationality'], p['dateBorn'], p['strWage'],p['strBirthlocation'], p['strSide'], p['dateSigned']);
-
-      players.add(playerObject);
-    }
-
-    return players;
-  }
 
 
   @override
   Widget build(BuildContext context) {
     return Container(
       child: FutureBuilder(
-        future: _getPlayer(idOfTeam),
+        future: infoPList,
         builder: (BuildContext context, AsyncSnapshot snapshot) {
 
           if(snapshot.data == null) {
@@ -100,7 +85,7 @@ class _TeamRosterState extends State<TeamRoster> {
                       );
                     },
                     child: Card(
-                      color: Colors.tealAccent,
+                      color:  Color(0xff18a0ff),
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Row(
@@ -127,25 +112,3 @@ class _TeamRosterState extends State<TeamRoster> {
 
 }
 
-class Player {
-  final String picture;
-  final String name;
-  final String position;
-  final String playerID;
-
-
-
-  final String team;
-  final String country;
-  final String dob;
-  final String wage;
-  final String pob;
-  final String foot;
-  final String year;
-
-
-
-
-  Player(this.picture, this.name, this.position, this.playerID,
-      this.team, this.country, this.dob, this.wage, this.pob, this.foot, this.year);
-}

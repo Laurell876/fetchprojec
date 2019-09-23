@@ -55,15 +55,16 @@ class PlayerPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('ScoreBoard'),
-        backgroundColor: Colors.tealAccent,
+        title: Text('SCOREBOARD', style: TextStyle(fontSize: 40, fontFamily: 'Vibes')),
+        centerTitle: true,
+        backgroundColor: Color(0xff18a0ff),
       ),
       body: SingleChildScrollView(
 
           child: Padding(
             padding: const EdgeInsets.all(15.0),
             child: Card(
-              color: Colors.tealAccent,
+              color: Color(0xff18a0ff),
               child: Padding(
                 padding: const EdgeInsets.all(20.0),
                 child: Column(
@@ -85,7 +86,12 @@ class PlayerPage extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
-                        Text('Player Name: '),
+                        Text('Player Name: ',
+                            style: TextStyle(
+                        fontFamily: 'Nunito',
+                              fontSize: 15,
+                    ),
+                        ),
                         emptyFunction(name),
                       ],
                     ),
@@ -96,7 +102,13 @@ class PlayerPage extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
-                        Text('Team: '),
+                        Text('Team: ',
+
+                      style: TextStyle(
+                      fontFamily: 'Nunito',
+                      fontSize: 15,
+                    ),
+                        ),
                         emptyFunction(team),
                       ],
                     ),
@@ -107,7 +119,14 @@ class PlayerPage extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
-                        Text('Date Signed: '),
+                        Text('Date Signed: ',
+
+
+                      style: TextStyle(
+                      fontFamily: 'Nunito',
+                      fontSize: 15,
+                    ),
+                        ),
                         emptyFunction(year),
                       ],
                     ),
@@ -118,7 +137,7 @@ class PlayerPage extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
-                        Text('Player Position: '),
+                        Text('Player Position: ',),
                         emptyFunction(position),
                       ],
                     ),
