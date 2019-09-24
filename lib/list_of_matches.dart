@@ -7,6 +7,7 @@ import 'dart:convert';
 import 'dart:async';
 import 'frontPage.dart';
 import 'search Results.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 
 
 
@@ -46,21 +47,36 @@ class _ListOfMatchesState extends State<ListOfMatches> with AutomaticKeepAliveCl
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(
-        horizontal: 40,
+        horizontal: 10,
       ),
       child: SingleChildScrollView(
         child: Column(
               children: <Widget>[
 
-                Container(padding: EdgeInsets.all(10),child: Text('Previous Matches')),
-                Divider(
-                  color: Colors.tealAccent,
+                Container(
+                    padding: EdgeInsets.symmetric(
+                      vertical: 2,
+                    ),
+                    child: Text(
+                        'PREVIOUS MATCHES',
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontFamily: 'Nunito',
+                      ),
+                    )
                 ),
+
+                Divider(
+                  color: Color(0xff18a0ff),
+                  height: 10,
+                  thickness: 1,
+                ),
+
+
                 Container(
                   child: FutureBuilder(
                     future: infoPrMatches,
                     builder: (BuildContext context, AsyncSnapshot snapshot) {
-
 
 
                       if(snapshot.data == null ) {
@@ -70,7 +86,7 @@ class _ListOfMatchesState extends State<ListOfMatches> with AutomaticKeepAliveCl
 
                                 CircularProgressIndicator(),
                                 Divider(
-                                  color: Colors.tealAccent,
+                                  color: Color(0xff18a0ff),
                                 ),
                               ],
                             ),
@@ -86,40 +102,78 @@ class _ListOfMatchesState extends State<ListOfMatches> with AutomaticKeepAliveCl
                             return Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: <Widget>[
-                                 Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+
+
+
+                                 Padding(
+                                   padding: const EdgeInsets.symmetric(
+                                     vertical: 2,
+                                   ),
+                                   child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
                                     children: <Widget>[
-                                      FittedBox(
-                                        child: Row(
-                                          children: <Widget>[
-                                            Text(snapshot.data[index].eventPrev),
-
-                                          ],
+                                      AutoSizeText(
+                                          "${snapshot.data[index].eventPrev}",
+                                        style: TextStyle(
+                                          fontFamily: 'Nunito',
+                                          fontSize: 15,
                                         ),
                                       ),
-                                      FittedBox(
-                                        child: Row(
-                                          children: <Widget>[
-
-                                            Text('${snapshot.data[index].homeScorePrev} - ${snapshot.data[index].awayScorePrev}     (home - away)'),
-                                          ],
-                                        ),
-                                      ),
-
-
-
 
                                     ],
 
+                                ),
+                                 ),
+
+
+
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                      vertical: 2,
+                                    ),
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: <Widget>[
+
+                                        AutoSizeText(
+                                          "${snapshot.data[index].homeScorePrev} - ${snapshot.data[index].awayScorePrev}",
+                                          style: TextStyle(
+                                            fontFamily: 'Nunito',
+                                            fontSize: 14,
+                                          ),
+                                        ),
+
+                                      ],
+
+                                    ),
                                   ),
 
-                                Text(snapshot.data[index].datePrev,
-                                  style: TextStyle(
-                                    color: Colors.grey[700],
+
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                    vertical: 2,
+                                  ),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: <Widget>[
+                                      Text(snapshot.data[index].datePrev,
+                                        style: TextStyle(
+                                          fontSize: 13,
+                                          fontFamily: 'Nunito',
+                                          color: Colors.grey[700],
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                 ),
+
+
+
+
                                 Divider(
-                                  color: Colors.tealAccent,
+                                  color: Color(0xff18a0ff),
+                                  height: 10,
+                                  thickness: 1,
                                 ),
                               ],
 
@@ -131,12 +185,35 @@ class _ListOfMatchesState extends State<ListOfMatches> with AutomaticKeepAliveCl
                   ),
                 ),
 
+
+
                 Column(
                   children: <Widget>[
-                    Container(padding: EdgeInsets.all(10),child: Text('UpComing Matches')),
-                    Divider(
-                      color: Colors.tealAccent,
+                    Container(
+                        padding: EdgeInsets.symmetric(
+                          vertical: 5,
+                        ),
+                        child: Text(
+                          'UPCOMING MATCHES',
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontFamily: 'Nunito',
+                          ),
+                        )
                     ),
+
+
+
+                    Divider(
+                      color: Color(0xff18a0ff),
+                      height: 10,
+                      thickness: 1,
+                    ),
+
+
+
+
+
                     Container(
                       child: FutureBuilder(
                         future: infoNxMatches,
@@ -154,15 +231,46 @@ class _ListOfMatchesState extends State<ListOfMatches> with AutomaticKeepAliveCl
                                   return Column(
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: <Widget>[
-                                      Text(snap.data[index].eventNext),
-                                      Text(snap.data[index].dateNext,
-                                        style: TextStyle(
-                                          color: Colors.grey[700],
+                                      Row(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        children: <Widget>[
+                                          AutoSizeText(
+                                              snap.data[index].eventNext,
+                                              style: TextStyle(
+                                                fontSize: 15,
+                                                fontFamily: 'Nunito',
+                                              ),
+                                          ),
+                                        ],
+                                      ),
+
+
+                                      Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            vertical: 4.0),
+                                        child: Row(
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          children: <Widget>[
+                                            AutoSizeText(snap.data[index].dateNext,
+                                              style: TextStyle(
+                                                fontSize: 13,
+                                                fontFamily: 'Nunito',
+                                                color: Colors.grey[700],
+                                              ),
+                                            ),
+                                          ],
                                         ),
                                       ),
+
+
+
                                       Divider(
-                                        color: Colors.tealAccent,
+                                        color: Color(0xff18a0ff),
+                                        height: 10,
+                                        thickness: 1,
                                       ),
+
+
                                     ],
                                   );
                             }
