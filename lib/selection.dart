@@ -37,12 +37,14 @@ class _SelectionPageState extends State<SelectionPage> {
 
 
   Widget get bottomNavigationBar {
-    return ClipRRect(
-      borderRadius: BorderRadius.only(
-        topRight: Radius.circular(40),
-        topLeft: Radius.circular(40),
-      ),
-      child: BottomNavigationBar(
+    return
+//      ClipRRect(
+//      borderRadius: BorderRadius.only(
+//        topRight: Radius.circular(40),
+//        topLeft: Radius.circular(40),
+//      ),
+//      child:
+      BottomNavigationBar(
         items: [
           BottomNavigationBarItem(
             icon: Icon(const IconData(0xe900, fontFamily: 'soccerBall')),
@@ -68,8 +70,8 @@ class _SelectionPageState extends State<SelectionPage> {
         unselectedItemColor: Colors.black,
         onTap: _onItemTapped,
         backgroundColor: Color(0xff18a0ff),
-      ),
-    );
+      );
+
   }
 
 

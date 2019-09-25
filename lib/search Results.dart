@@ -66,7 +66,7 @@ class _HomePageState extends State<HomePage> {
 
       for (var t in listData) {
         Team teamObject = Team(t['strTeamBadge'], t['strTeam'], t['strAlternate'],t['strLeague'], t['strCountry'], t['strStadium'], t['strStadiumThumb'],
-            t['strTeamJersey'], t['strFacebook'], t['Twitter'], t['strInstagram']);
+            t['strTeamJersey'], t['strFacebook'], t['strTwitter'], t['strInstagram']);
         teams.add(teamObject);
 
       }
@@ -237,50 +237,67 @@ class _HomePageState extends State<HomePage> {
       body:
 
 
-      ListView.builder(
-          scrollDirection: Axis.vertical,
-          shrinkWrap: true,
-          itemCount: userData == null ? 0: userData.length,
-          itemBuilder: (BuildContext   context, int index) {
-            return Container(
+      SizedBox.expand(
 
-              child: Visibility(
-                child: GestureDetector(
-                  onTap: () {
+        child: Container(
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: ExactAssetImage('assets/stadium.png'),
+              fit: BoxFit.cover,
+            ),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(
+              vertical: 10,
+              horizontal: 10,
+            ),
+            child: ListView.builder(
+                scrollDirection: Axis.vertical,
+                shrinkWrap: true,
+                itemCount: userData == null ? 0: userData.length,
+                itemBuilder: (BuildContext   context, int index) {
+                  return Container(
 
-                    //selectionScreen(int.parse(userData[index]['idTeam']), userDataList[0]['strEvent']);
-                    //selectionScreen(int.parse(userData[index]['idTeam']), userDataList);
-                    loadEverything(int.parse(userData[index]['idTeam']), userDataList);
-                  },
-                  child: Card(
+                    child: Visibility(
+                      child: GestureDetector(
+                        onTap: () {
 
-                    color: Color(0xff18a0ff),
-                    elevation: 5,
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 5,
-                        vertical: 10,
-                      ),
-                      child: Row(
+                          //selectionScreen(int.parse(userData[index]['idTeam']), userDataList[0]['strEvent']);
+                          //selectionScreen(int.parse(userData[index]['idTeam']), userDataList);
+                          loadEverything(int.parse(userData[index]['idTeam']), userDataList);
+                        },
+                        child: Card(
 
-                        mainAxisAlignment: MainAxisAlignment.start,
+                          color: Color(0xff18a0ff),
+                          elevation: 5,
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 5,
+                              vertical: 10,
+                            ),
+                            child: Row(
 
-                        children: <Widget>[
-                          //function that sets image of avatar
-                          setImage(userData[index]['strTeamBadge']),
+                              mainAxisAlignment: MainAxisAlignment.start,
 
-                          SizedBox(
-                            width: 40,
+                              children: <Widget>[
+                                //function that sets image of avatar
+                                setImage(userData[index]['strTeamBadge']),
+
+                                SizedBox(
+                                  width: 40,
+                                ),
+                                Text(userData[index]['strTeam']),
+                              ],
+                            ),
                           ),
-                          Text(userData[index]['strTeam']),
-                        ],
+                        ),
                       ),
                     ),
-                  ),
-                ),
-              ),
-            );
-          }
+                  );
+                }
+            ),
+          ),
+        ),
       ),
 
     );
@@ -299,6 +316,7 @@ class Team{
   final String stadiumPic;
   final String jersey;
   final String facebook;
+
   final String twitter;
   final String instagram;
 

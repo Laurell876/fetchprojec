@@ -5,6 +5,8 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'dart:async';
+import 'package:auto_size_text/auto_size_text.dart';
+
 
 
 
@@ -59,149 +61,152 @@ class PlayerPage extends StatelessWidget {
         centerTitle: true,
         backgroundColor: Color(0xff18a0ff),
       ),
-      body: SingleChildScrollView(
+      body: Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: ExactAssetImage('assets/stadium.png'),
+            fit: BoxFit.cover,
+          ),
+        ),
+        child: SingleChildScrollView(
 
-          child: Padding(
-            padding: const EdgeInsets.all(15.0),
-            child: Card(
-              color: Color(0xff18a0ff),
-              child: Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: Column(
+            child: Padding(
+              padding: const EdgeInsets.all(15.0),
+              child: Card(
+                color: Color(0xff18a0ff).withOpacity(0.4),
+                child: Padding(
+                  padding: const EdgeInsets.all(20.0),
+                  child: Column(
 
-                  children: <Widget>[
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
+                    children: <Widget>[
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
 
-                          setImage(pic),
+                            setImage(pic),
 
-                      ],
-                    ),
+                        ],
+                      ),
 
-                    SizedBox(
-                      height:40,
-                    ),
+                      SizedBox(
+                        height:40,
+                      ),
 
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        Text('Player Name: ',
-                            style: TextStyle(
-                        fontFamily: 'Nunito',
-                              fontSize: 15,
-                    ),
-                        ),
-                        emptyFunction(name),
-                      ],
-                    ),
-                    SizedBox(
-                      height:40,
-                    ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          AutoSizeText('Player Name: ',
+                              style: TextStyle(
+                                color: Colors.white,
+                              fontFamily: 'Nunito',
+                                fontSize: 15,
+                      ),
+                          ),
+                          emptyFunction(name),
+                        ],
+                      ),
+                      SizedBox(
+                        height:40,
+                      ),
 
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        Text('Team: ',
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          titleWord('Team: '),
+                          emptyFunction(team),
+                        ],
+                      ),
+                      SizedBox(
+                        height:40,
+                      ),
 
-                      style: TextStyle(
-                      fontFamily: 'Nunito',
-                      fontSize: 15,
-                    ),
-                        ),
-                        emptyFunction(team),
-                      ],
-                    ),
-                    SizedBox(
-                      height:40,
-                    ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          titleWord('Date Signed: '),
+                          emptyFunction(year),
+                        ],
+                      ),
+                      SizedBox(
+                        height:40,
+                      ),
 
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        Text('Date Signed: ',
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          titleWord('Player Position: ',),
+                          emptyFunction(position),
+                        ],
+                      ),
+                      SizedBox(
+                        height:40,
+                      ),
 
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          titleWord('Player Wage: '),
+                          emptyFunction(wage),
+                        ],
+                      ),
+                      SizedBox(
+                        height:40,
+                      ),
 
-                      style: TextStyle(
-                      fontFamily: 'Nunito',
-                      fontSize: 15,
-                    ),
-                        ),
-                        emptyFunction(year),
-                      ],
-                    ),
-                    SizedBox(
-                      height:40,
-                    ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          titleWord('Strong Foot: '),
+                          emptyFunction(foot),
+                        ],
+                      ),
+                      SizedBox(
+                        height:40,
+                      ),
 
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        Text('Player Position: ',),
-                        emptyFunction(position),
-                      ],
-                    ),
-                    SizedBox(
-                      height:40,
-                    ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          titleWord('Player Nationality: '),
+                          emptyFunction(country),
+                        ],
+                      ),
+                      SizedBox(
+                        height:40,
+                      ),
 
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        Text('Player Wage: '),
-                        emptyFunction(wage),
-                      ],
-                    ),
-                    SizedBox(
-                      height:40,
-                    ),
-
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        Text('Strong Foot: '),
-                        emptyFunction(foot),
-                      ],
-                    ),
-                    SizedBox(
-                      height:40,
-                    ),
-
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        Text('Player Nationality: '),
-                        emptyFunction(country),
-                      ],
-                    ),
-                    SizedBox(
-                      height:40,
-                    ),
-
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        Text('Place of Birth: '),
-                        emptyFunction(pob),
-                      ],
-                    ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          titleWord('Place of Birth: '),
+                          emptyFunction(pob),
+                        ],
+                      ),
 //
 
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ),
-          ),
 
+        ),
       ),
     );
   }
+
+  titleWord(String title) {
+    return AutoSizeText(title, style: TextStyle(color: Colors.white));
+  }
+
+
+
   emptyFunction(var money) {
     if (money=='' || money==null){
-      return Text('N/A');
+      return AutoSizeText('N/A',style: TextStyle(color: Colors.white, fontSize: 15));
     }
     else if (money!='') {
-      return Text(money);
+      return AutoSizeText(money, style: TextStyle(color: Colors.white, fontSize: 15));
     }
   }
 }

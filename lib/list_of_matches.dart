@@ -26,7 +26,7 @@ class ListOfMatches extends StatefulWidget {
   _ListOfMatchesState createState() => _ListOfMatchesState(idOfTeam: idOfTeam, infoPrMatches: infoPrMatches, infoNxMatches: infoNxMatches);
 }
 
-class _ListOfMatchesState extends State<ListOfMatches> with AutomaticKeepAliveClientMixin<ListOfMatches>{
+class _ListOfMatchesState extends State<ListOfMatches>{
   _ListOfMatchesState({this.idOfTeam, this.infoPrMatches, this.infoNxMatches});
   int idOfTeam;
 
@@ -34,10 +34,12 @@ class _ListOfMatchesState extends State<ListOfMatches> with AutomaticKeepAliveCl
 
   Future<List<previousMatches>> infoPrMatches;
 
+  int index;
 
-  //only runs init once requires : with AutomaticKeepAliveClientMixin<ListOfMatches>
-  @override
-  bool get wantKeepAlive => true;
+  List<Widget> pMatchColumnList = new List<Widget>();
+  List<Widget> nMatchColumnList = new List<Widget>();
+
+
 
 
 
@@ -45,245 +47,278 @@ class _ListOfMatchesState extends State<ListOfMatches> with AutomaticKeepAliveCl
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(
-        horizontal: 10,
-      ),
-      child: SingleChildScrollView(
-        child: Column(
-              children: <Widget>[
+    return SizedBox.expand(
 
-                Container(
-                    padding: EdgeInsets.symmetric(
-                      vertical: 2,
-                    ),
-                    child: Text(
-                        'PREVIOUS MATCHES',
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontFamily: 'Nunito',
-                      ),
-                    )
-                ),
+      child: Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: ExactAssetImage('assets/stadium.png'),
+            fit: BoxFit.cover,
+          ),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(
+            20.0,
+          ),
+          child: ClipRRect(
+            borderRadius: new BorderRadius.circular(20.0),
+            child: Container(
+              color: Color(0xff18a0ff).withOpacity(0.7),
+              child: SingleChildScrollView(
+                child: Column(
+                      children: <Widget>[
 
-                Divider(
-                  color: Color(0xff18a0ff),
-                  height: 10,
-                  thickness: 1,
-                ),
-
-
-                Container(
-                  child: FutureBuilder(
-                    future: infoPrMatches,
-                    builder: (BuildContext context, AsyncSnapshot snapshot) {
-
-
-                      if(snapshot.data == null ) {
-                        return Center(
-                            child: Column(
-                              children: <Widget>[
-
-                                CircularProgressIndicator(),
-                                Divider(
-                                  color: Color(0xff18a0ff),
-                                ),
-                              ],
+                        Container(
+                            padding: EdgeInsets.symmetric(
+                              vertical: 2,
                             ),
-                        );
-                      }
-                      else {
-                        return ListView.builder(
-                            scrollDirection: Axis.vertical,
-                            shrinkWrap: true,
-                            itemCount: snapshot.data.length,
-                            itemBuilder: (BuildContext context, int index) {
+                            child: Text(
+                                'PREVIOUS MATCHES',
+                              style: TextStyle(
+                                fontSize: 30,
+                                fontFamily: 'Nunito',
+                                color: Colors.white,
+                              ),
+                            )
+                        ),
 
-                            return Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: <Widget>[
-
-
-
-                                 Padding(
-                                   padding: const EdgeInsets.symmetric(
-                                     vertical: 2,
-                                   ),
-                                   child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: <Widget>[
-                                      AutoSizeText(
-                                          "${snapshot.data[index].eventPrev}",
-                                        style: TextStyle(
-                                          fontFamily: 'Nunito',
-                                          fontSize: 15,
-                                        ),
-                                      ),
-
-                                    ],
-
-                                ),
-                                 ),
+                        Divider(
+                          color: Color(0xff18a0ff),
+                          height: 10,
+                          thickness: 1,
+                        ),
 
 
+                        Container(
+                          child: FutureBuilder(
+                            future: infoPrMatches,
+                            builder: (BuildContext context, AsyncSnapshot snapshot) {
 
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                      vertical: 2,
-                                    ),
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.center,
+
+                              if(snapshot.data == null ) {
+                                return Center(
+                                    child: Column(
                                       children: <Widget>[
 
-                                        AutoSizeText(
-                                          "${snapshot.data[index].homeScorePrev} - ${snapshot.data[index].awayScorePrev}",
-                                          style: TextStyle(
-                                            fontFamily: 'Nunito',
-                                            fontSize: 14,
-                                          ),
+                                        CircularProgressIndicator(),
+                                        Divider(
+                                          color: Color(0xff18a0ff),
                                         ),
-
                                       ],
-
                                     ),
-                                  ),
+                                );
+                              }
+                              else {
+                                //ensures it only adds the data to the widget if the list doesnt already have the data
+                                if(pMatchColumnList.length<snapshot.data.length) {
+                                  for(index=0;index<snapshot.data.length; index++){
 
-
-                                Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                    vertical: 2,
-                                  ),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: <Widget>[
-                                      Text(snapshot.data[index].datePrev,
-                                        style: TextStyle(
-                                          fontSize: 13,
-                                          fontFamily: 'Nunito',
-                                          color: Colors.grey[700],
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-
-
-
-
-                                Divider(
-                                  color: Color(0xff18a0ff),
-                                  height: 10,
-                                  thickness: 1,
-                                ),
-                              ],
-
-                            );
-                            }
-                        );
-                      }
-                    },
-                  ),
-                ),
-
-
-
-                Column(
-                  children: <Widget>[
-                    Container(
-                        padding: EdgeInsets.symmetric(
-                          vertical: 5,
-                        ),
-                        child: Text(
-                          'UPCOMING MATCHES',
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontFamily: 'Nunito',
-                          ),
-                        )
-                    ),
-
-
-
-                    Divider(
-                      color: Color(0xff18a0ff),
-                      height: 10,
-                      thickness: 1,
-                    ),
-
-
-
-
-
-                    Container(
-                      child: FutureBuilder(
-                        future: infoNxMatches,
-                        builder: (BuildContext cxt, AsyncSnapshot snap) {
-
-                          if (snap.data == null ) {
-                            return Center(child: CircularProgressIndicator(),);
-                          }
-                          else {
-                            return ListView.builder(
-                                itemCount: snap.data.length,
-                              scrollDirection: Axis.vertical,
-                              shrinkWrap: true,
-                              itemBuilder: (BuildContext cxt, int index) {
-                                  return Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: <Widget>[
-                                      Row(
-                                        mainAxisAlignment: MainAxisAlignment.center,
+                                    pMatchColumnList.add(
+                                      Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
                                         children: <Widget>[
-                                          AutoSizeText(
-                                              snap.data[index].eventNext,
-                                              style: TextStyle(
-                                                fontSize: 15,
-                                                fontFamily: 'Nunito',
-                                              ),
+
+                                          Padding(
+                                            padding: const EdgeInsets.symmetric(
+                                              vertical: 2,
+                                            ),
+                                            child: Row(
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              children: <Widget>[
+                                                FittedBox(
+                                                  fit: BoxFit.fitWidth,
+                                                  child: Text(
+
+                                                    "${snapshot.data[index].eventPrev}",
+
+                                                    style: TextStyle(
+                                                      fontFamily: 'Nunito',
+
+                                                      color: Colors.black,
+
+                                                    ),
+                                                  ),
+                                                ),
+
+                                              ],
+
+                                            ),
+                                          ),
+
+
+
+                                          Padding(
+                                            padding: const EdgeInsets.symmetric(
+                                              vertical: 2,
+                                            ),
+                                            child: Row(
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              children: <Widget>[
+
+                                                AutoSizeText(
+                                                  "${snapshot.data[index].homeScorePrev} - ${snapshot.data[index].awayScorePrev}",
+                                                  style: TextStyle(
+                                                    fontFamily: 'Nunito',
+
+                                                    color: Colors.black,
+                                                  ),
+                                                ),
+
+                                              ],
+
+                                            ),
+                                          ),
+
+
+                                          Padding(
+                                            padding: const EdgeInsets.symmetric(
+                                              vertical: 2,
+                                            ),
+                                            child: Row(
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              children: <Widget>[
+                                                Text(snapshot.data[index].datePrev,
+                                                  style: TextStyle(
+
+                                                    fontFamily: 'Nunito',
+                                                    color: Colors.black,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+
+
+
+
+                                          Divider(
+                                            color: Color(0xff18a0ff),
+                                            height: 10,
+                                            thickness: 1,
                                           ),
                                         ],
+
                                       ),
+                                    );
 
 
-                                      Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                            vertical: 4.0),
-                                        child: Row(
-                                          mainAxisAlignment: MainAxisAlignment.center,
-                                          children: <Widget>[
-                                            AutoSizeText(snap.data[index].dateNext,
-                                              style: TextStyle(
-                                                fontSize: 13,
-                                                fontFamily: 'Nunito',
-                                                color: Colors.grey[700],
+                                  }
+                                }
+
+                                return Column(children: pMatchColumnList);
+
+                              }
+                            },
+                          ),
+                        ),
+
+
+
+
+                            Container(
+                                padding: EdgeInsets.symmetric(
+                                  vertical: 5,
+                                ),
+                                child: Text(
+                                  'UPCOMING MATCHES',
+                                  style: TextStyle(
+                                    fontSize: 30,
+                                    fontFamily: 'Nunito',
+                                    color: Colors.white,
+                                  ),
+                                )
+                            ),
+
+
+
+                            Divider(
+                              color: Color(0xff18a0ff),
+                              height: 10,
+                              thickness: 1,
+                            ),
+
+
+
+
+
+                            Container(
+                              child: FutureBuilder(
+                                future: infoNxMatches,
+                                builder: (BuildContext cxt, AsyncSnapshot snap) {
+
+                                  if (snap.data == null ) {
+                                    return Center(child: CircularProgressIndicator(),);
+                                  }
+                                  else {
+
+                                    //ensures it only adds the data to the widget if the list doesnt already have the data
+                                    if(nMatchColumnList.length<snap.data.length) {
+                                      for(index=0;index< snap.data.length; index++){
+                                        nMatchColumnList.add(
+                                          Column(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: <Widget>[
+                                              Row(
+                                                mainAxisAlignment: MainAxisAlignment.center,
+                                                children: <Widget>[
+                                                  AutoSizeText(
+                                                    snap.data[index].eventNext,
+                                                    style: TextStyle(
+
+                                                      fontFamily: 'Nunito',
+                                                      color: Colors.black,
+                                                    ),
+                                                  ),
+                                                ],
                                               ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
+
+
+                                              Padding(
+                                                padding: const EdgeInsets.symmetric(
+                                                    vertical: 4.0),
+                                                child: Row(
+                                                  mainAxisAlignment: MainAxisAlignment.center,
+                                                  children: <Widget>[
+                                                    AutoSizeText(snap.data[index].dateNext,
+                                                      style: TextStyle(
+
+                                                        fontFamily: 'Nunito',
+                                                        color: Colors.black,
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
 
 
 
-                                      Divider(
-                                        color: Color(0xff18a0ff),
-                                        height: 10,
-                                        thickness: 1,
-                                      ),
+                                              Divider(
+                                                color: Color(0xff18a0ff),
+                                                height: 10,
+                                                thickness: 1,
+                                              ),
 
 
-                                    ],
-                                  );
-                            }
-                            );
-                          }
-                        }
-                      ),
+                                            ],
+                                          ),
+                                        );
+
+                                      }
+                                    }
+
+                                    return Column(children: nMatchColumnList);
+                                  }
+                                }
+                              ),
+                            ),
+
+
+                      ],
                     ),
-                  ],
-                ),
-
-              ],
+              ),
             ),
+          ),
+        ),
       ),
     );
 

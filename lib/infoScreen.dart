@@ -84,234 +84,275 @@ class _InfoScreenState extends State<InfoScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: FutureBuilder(
-        future: infoSrList,
-        builder: (BuildContext context, AsyncSnapshot snapshot) {
-          if (snapshot.data == null) {
-            return Container(
-              child: Center(
-                child: CircularProgressIndicator(),
-              ),
-            );
-          }
-          else {
-            return ListView.builder(
-              scrollDirection: Axis.vertical,
-              shrinkWrap: true,
-              itemCount: snapshot.data.length,
-              itemBuilder: (BuildContext context, int index) {
-                return Column(
-                  children: <Widget>[
+    return SizedBox.expand(
+      child: Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: ExactAssetImage('assets/stadium.png'),
+            fit: BoxFit.cover,
+          ),
+        ),
+        child: FutureBuilder(
+          future: infoSrList,
+          builder: (BuildContext context, AsyncSnapshot snapshot) {
+            if (snapshot.data == null) {
+              return Container(
+                child: Center(
+                  child: CircularProgressIndicator(),
+                ),
+              );
+            }
+            else {
+              return Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: ClipRRect(
+                  borderRadius: new BorderRadius.circular(20.0),
+                  child: Container(
+                    color: Color(0xff18a0ff).withOpacity(0.4),
+                    child: ListView.builder(
+                      scrollDirection: Axis.vertical,
+                      shrinkWrap: true,
+                      itemCount: snapshot.data.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return Column(
+                          children: <Widget>[
 
 
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                        vertical: 3,
-                      ),
-                      child: AutoSizeText(
-                        snapshot.data[index].name,
-                        style: TextStyle(
-                            fontFamily: 'Nunito',
-                            fontSize: 40
-                        ),
-                      ),
-                    ),
-                    setImage(snapshot.data[index].badge),
-
-
-                    SizedBox(
-                      height: 40,
-                    ),
-
-
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 40,
-                      ),
-                      child: Column(
-                        children: <Widget>[
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: <Widget>[
-                              AutoSizeText(
-                                "Alternative Name: ",
-                                style: TextStyle(
-                                  fontFamily: 'Nunito',
-                                  fontSize: 17,
-                                ),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(
+                                vertical: 3,
                               ),
-                              AutoSizeText(snapshot.data[index].altName,
+                              child: AutoSizeText(
+                                snapshot.data[index].name,
                                 style: TextStyle(
-                                  fontFamily: 'Nunito',
-                                  fontSize: 17,
-                                ),
-                              ),
-
-
-                            ],
-                          ),
-                          SizedBox(
-                            height: 20,
-                          ),
-
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: <Widget>[
-                              AutoSizeText("League: ",
-                                style: TextStyle(
-                                  fontFamily: 'Nunito',
-                                  fontSize: 17,
-                                ),
-                              ),
-                              AutoSizeText(snapshot.data[index].league,
-                                style: TextStyle(
-                                  fontFamily: 'Nunito',
-                                  fontSize: 17,
-                                ),
-                              ),
-                            ],
-                          ),
-                          SizedBox(
-                            height: 20,
-                          ),
-
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: <Widget>[
-                              AutoSizeText("Country: ",
-                                style: TextStyle(
-                                  fontFamily: 'Nunito',
-                                  fontSize: 17,
-                                ),
-                              ),
-                              AutoSizeText(snapshot.data[index].country,
-                                style: TextStyle(
-                                  fontFamily: 'Nunito',
-                                  fontSize: 17,
-                                ),
-                              ),
-                            ],
-                          ),
-
-
-                          SizedBox(
-                            height: 20,
-                          ),
-
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: <Widget>[
-                              AutoSizeText("Stadium Name: ",
-                                style: TextStyle(
-                                  fontFamily: 'Nunito',
-                                  fontSize: 17,
-                                ),
-                              ),
-                              AutoSizeText(snapshot.data[index].stadiumName,
-                                style: TextStyle(
-                                  fontFamily: 'Nunito',
-                                  fontSize: 17,
-                                ),
-                              ),
-                            ],
-                          ),
-
-
-                          SizedBox(
-                            height: 40,
-                          ),
-                          setImage(snapshot.data[index].stadiumPic),
-                          SizedBox(
-                            height: 30,
-                          ),
-
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: <Widget>[
-                              AutoSizeText("Jersey: ",
-                                style: TextStyle(
-                                  fontFamily: 'Nunito',
-                                  fontSize: 17,
-                                ),
-                              ),
-                            ],
-
-                          ),
-
-
-                          SizedBox(
-                            height: 20,
-                          ),
-
-
-                          setImage(snapshot.data[index].jersey),
-
-
-                          SizedBox(
-                            height: 40,
-                          ),
-
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Card(
-                              color: Color(0xff18a0ff),
-                              child: Padding(
-                                padding: const EdgeInsets.all(15.0),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment
-                                      .spaceBetween,
-                                  children: <Widget>[
-                                    GestureDetector(
-                                        onTap: () {
-                                          _launchURL(snapshot.data[index].facebook);
-                                        },
-                                        child: Image.asset(
-                                            'assets/icon-facebook.png',
-                                          width: 25,
-                                          height:50,
-                                        )
-                                    ),
-
-
-                                    GestureDetector(
-                                        onTap: () {
-                                          _launchURL(snapshot.data[index].instagram);
-                                        },
-                                        child: Image.asset(
-                                          'assets/ig.png',
-                                          width: 55,
-                                          height:50,
-                                        )
-                                    ),
-
-
-
-                                    setImageSM('assets/twitter.png'),
-                                  ],
-
+                                  color: Colors.white,
+                                    fontFamily: 'Nunito',
+                                    fontSize: 40
                                 ),
                               ),
                             ),
-                          ),
+                            setImage(snapshot.data[index].badge),
 
 
-                        ],
-                      ),
+                            SizedBox(
+                              height: 40,
+                            ),
 
+
+                            Padding(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 40,
+                              ),
+                              child: Column(
+                                children: <Widget>[
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: <Widget>[
+                                      AutoSizeText(
+                                        "Alternative Name: ",
+                                        style: TextStyle(
+                                          fontFamily: 'Nunito',
+                                          fontSize: 17,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                      AutoSizeText(snapshot.data[index].altName,
+
+                                        style: TextStyle(
+                                          fontFamily: 'Nunito',
+                                          fontSize: 17,
+                                          color: Colors.white,
+
+                                        ),
+                                      ),
+
+
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    height: 20,
+                                  ),
+
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: <Widget>[
+                                      AutoSizeText("League: ",
+                                        style: TextStyle(
+                                          fontFamily: 'Nunito',
+                                          fontSize: 17,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                      AutoSizeText(snapshot.data[index].league,
+                                        style: TextStyle(
+                                          fontFamily: 'Nunito',
+                                          fontSize: 17,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    height: 20,
+                                  ),
+
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: <Widget>[
+                                      AutoSizeText("Country: ",
+                                        style: TextStyle(
+                                          fontFamily: 'Nunito',
+                                          fontSize: 17,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                      AutoSizeText(snapshot.data[index].country,
+                                        style: TextStyle(
+                                          fontFamily: 'Nunito',
+                                          fontSize: 17,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+
+
+                                  SizedBox(
+                                    height: 20,
+                                  ),
+
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: <Widget>[
+                                      AutoSizeText("Stadium Name: ",
+                                        style: TextStyle(
+                                          fontFamily: 'Nunito',
+                                          fontSize: 17,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                      AutoSizeText(snapshot.data[index].stadiumName,
+                                        style: TextStyle(
+                                          fontFamily: 'Nunito',
+                                          fontSize: 17,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+
+
+                                  SizedBox(
+                                    height: 40,
+                                  ),
+                                  setImage(snapshot.data[index].stadiumPic),
+                                  SizedBox(
+                                    height: 30,
+                                  ),
+
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: <Widget>[
+                                      AutoSizeText("Jersey: ",
+                                        style: TextStyle(
+                                          fontFamily: 'Nunito',
+                                          fontSize: 17,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                    ],
+
+                                  ),
+
+
+                                  SizedBox(
+                                    height: 20,
+                                  ),
+
+
+                                  setImage(snapshot.data[index].jersey),
+
+
+                                  SizedBox(
+                                    height: 40,
+                                  ),
+
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Card(
+                                      color: Color(0xff18a0ff).withOpacity(0.6),
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(15.0),
+                                        child: Row(
+                                          mainAxisAlignment: MainAxisAlignment
+                                              .spaceBetween,
+                                          children: <Widget>[
+                                            GestureDetector(
+                                                onTap: () {
+                                                  _launchURL(snapshot.data[index].facebook);
+                                                },
+                                                child: Image.asset(
+                                                    'assets/icon-facebook.png',
+                                                  width: 25,
+                                                  height:50,
+                                                )
+                                            ),
+
+
+                                            GestureDetector(
+                                                onTap: () {
+                                                  _launchURL(snapshot.data[index].instagram);
+                                                },
+                                                child: Image.asset(
+                                                  'assets/ig.png',
+                                                  width: 55,
+                                                  height:50,
+                                                )
+                                            ),
+
+
+                                            GestureDetector(
+                                                onTap: () {
+                                                  _launchURL(snapshot.data[index].twitter);
+                                                },
+                                                child: Image.asset(
+                                                  'assets/twitter.png',
+                                                  width: 55,
+                                                  height:50,
+                                                )
+                                            ),
+
+
+
+//                                    setImageSM('assets/twitter.png'),
+                                          ],
+
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+
+
+                                ],
+                              ),
+
+                            ),
+                          ],
+                        );
+                      },
                     ),
-                  ],
-                );
-              },
-            );
-          }
-        },
+                  ),
+                ),
+              );
+            }
+          },
+        ),
       ),
     );
   }
 
   _launchURL(String url2) async {
-    String url = url2;
+    String url = 'https://' + url2;
 
     if (await canLaunch(url)) {
       await launch(url);

@@ -58,6 +58,7 @@ flutter:
     - badge.png
     - badge1.png
     - assets/stadium.jpg
+    - assets/stadium.png
     - assets/icon-facebook.png
 
     - assets/ig.png
@@ -83,9 +84,14 @@ flutter:
        fonts:
          - asset: assets/fonts/soccer_ball.ttf
 
+
      - family: Vibes
        fonts:
          - asset: fonts/Vibes-Regular.ttf
+
+     - family: Farro
+       fonts:
+         - asset: fonts/Farro-Regular.ttf
 
   #
   # For details regarding fonts from package dependencies,

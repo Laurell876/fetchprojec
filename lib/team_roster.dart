@@ -8,6 +8,8 @@ import 'dart:async';
 import 'player_page.dart';
 import 'search Results.dart';
 import 'frontPage.dart';
+import 'package:auto_size_text/auto_size_text.dart';
+
 
 
 class TeamRoster extends StatefulWidget {
@@ -56,6 +58,13 @@ class _TeamRosterState extends State<TeamRoster> {
   @override
   Widget build(BuildContext context) {
     return Container(
+
+      decoration: BoxDecoration(
+        image: DecorationImage(
+          image: ExactAssetImage('assets/stadium.png'),
+          fit: BoxFit.cover,
+        ),
+      ),
       child: FutureBuilder(
         future: infoPList,
         builder: (BuildContext context, AsyncSnapshot snapshot) {
@@ -68,40 +77,62 @@ class _TeamRosterState extends State<TeamRoster> {
             );
           }
           else {
-            return ListView.builder(
-              scrollDirection: Axis.vertical,
-              shrinkWrap: true,
-              itemCount: snapshot.data.length,
-              itemBuilder: (BuildContext context, int index) {
-                return Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: GestureDetector(
-                    onTap: (){
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context)=>PlayerPage(snapshot.data[index].playerID,
-                            snapshot.data[index].name, snapshot.data[index].country, snapshot.data[index].wage,
-                            snapshot.data[index].foot, snapshot.data[index].position, snapshot.data[index].pob, snapshot.data[index].team, snapshot.data[index].picture, snapshot.data[index].year)),
+            return Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(16.0),
+                child: Container(
+
+                  color: Color(0xff18a0ff).withOpacity(0.4),
+                  child: ListView.builder(
+                    scrollDirection: Axis.vertical,
+                    shrinkWrap: true,
+                    itemCount: snapshot.data.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: GestureDetector(
+                          onTap: (){
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context)=>PlayerPage(snapshot.data[index].playerID,
+                                  snapshot.data[index].name, snapshot.data[index].country, snapshot.data[index].wage,
+                                  snapshot.data[index].foot, snapshot.data[index].position, snapshot.data[index].pob, snapshot.data[index].team, snapshot.data[index].picture, snapshot.data[index].year)),
+                            );
+                          },
+                          child: Card(
+                            color:  Color(0xff18a0ff),
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: <Widget>[
+
+                                  setImage(snapshot.data[index].picture),
+                                  AutoSizeText(
+                                      snapshot.data[index].name,
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontFamily: 'Nunito',
+                                      fontSize: 15,
+                                    ),
+                                  ),
+                                  AutoSizeText(
+                                      snapshot.data[index].position,
+                                      style: TextStyle(
+                                        fontFamily: 'Nunito',
+                                      ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
                       );
                     },
-                    child: Card(
-                      color:  Color(0xff18a0ff),
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: <Widget>[
-
-                            setImage(snapshot.data[index].picture),
-                            Text(snapshot.data[index].name),
-                            Text(snapshot.data[index].position),
-                          ],
-                        ),
-                      ),
-                    ),
                   ),
-                );
-              },
+                ),
+              ),
             );
           }
         },
