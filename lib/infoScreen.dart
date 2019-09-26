@@ -38,13 +38,16 @@ class _InfoScreenState extends State<InfoScreen> {
   Widget setImage(String url) {
     if (url != null) {
       return Container(
-        height: 150,
         child: ClipRRect(
           borderRadius: new BorderRadius.circular(20.0),
           child: CachedNetworkImage(
-            imageUrl: url,
-            placeholder: (context, url) => new CircularProgressIndicator(),
 
+            imageUrl: url,
+            placeholder: (context, url) => Container(
+              height:20,
+              width:20,
+              child: new CircularProgressIndicator(),
+            ),
           ),
         ),
       );
