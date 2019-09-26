@@ -122,16 +122,24 @@ class _InfoScreenState extends State<InfoScreen> {
                               padding: const EdgeInsets.symmetric(
                                 vertical: 3,
                               ),
-                              child: AutoSizeText(
-                                snapshot.data[index].name,
-                                style: TextStyle(
-                                  color: Colors.white,
-                                    fontFamily: 'Nunito',
-                                    fontSize: 40
-                                ),
+                              child: Wrap(
+                                direction: Axis.horizontal,
+                                children: <Widget>[
+                                  Text(
+                                    snapshot.data[index].name,
+                                    style: TextStyle(
+                                      letterSpacing: 2,
+                                        color: Colors.white,
+                                        fontFamily: 'Bangers',
+                                        fontSize: 40
+                                    ),
+                                  ),
+                                ],
+
                               ),
                             ),
                             setImage(snapshot.data[index].badge),
+
 
 
                             SizedBox(
@@ -145,101 +153,55 @@ class _InfoScreenState extends State<InfoScreen> {
                               ),
                               child: Column(
                                 children: <Widget>[
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    children: <Widget>[
-                                      AutoSizeText(
-                                        "Alternative Name: ",
-                                        style: TextStyle(
-                                          fontFamily: 'Nunito',
-                                          fontSize: 17,
-                                          color: Colors.white,
-                                        ),
+
+                                      stringCheckH('Alternative Name: '),
+                                      SizedBox(
+                                        height:10,
                                       ),
-                                      AutoSizeText(snapshot.data[index].altName,
-
-                                        style: TextStyle(
-                                          fontFamily: 'Nunito',
-                                          fontSize: 17,
-                                          color: Colors.white,
-
-                                        ),
-                                      ),
+                                      stringCheck(snapshot.data[index].altName),
 
 
-                                    ],
-                                  ),
+
+
+
                                   SizedBox(
-                                    height: 20,
+                                    height: 30,
                                   ),
 
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    children: <Widget>[
-                                      AutoSizeText("League: ",
-                                        style: TextStyle(
-                                          fontFamily: 'Nunito',
-                                          fontSize: 17,
-                                          color: Colors.white,
-                                        ),
-                                      ),
-                                      AutoSizeText(snapshot.data[index].league,
-                                        style: TextStyle(
-                                          fontFamily: 'Nunito',
-                                          fontSize: 17,
-                                          color: Colors.white,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
+
+                                  stringCheckH('League: '),
                                   SizedBox(
-                                    height: 20,
+                                    height:10,
+                                  ),
+                                  stringCheck(snapshot.data[index].league),
+
+
+                                  SizedBox(
+                                    height: 30,
                                   ),
 
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    children: <Widget>[
-                                      AutoSizeText("Country: ",
-                                        style: TextStyle(
-                                          fontFamily: 'Nunito',
-                                          fontSize: 17,
-                                          color: Colors.white,
-                                        ),
-                                      ),
-                                      AutoSizeText(snapshot.data[index].country,
-                                        style: TextStyle(
-                                          fontFamily: 'Nunito',
-                                          fontSize: 17,
-                                          color: Colors.white,
-                                        ),
-                                      ),
-                                    ],
+
+                                  stringCheckH('Country: '),
+                                  SizedBox(
+                                    height:10,
                                   ),
+                                  stringCheck(snapshot.data[index].country),
+
+
 
 
                                   SizedBox(
                                     height: 20,
                                   ),
 
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    children: <Widget>[
-                                      AutoSizeText("Stadium Name: ",
-                                        style: TextStyle(
-                                          fontFamily: 'Nunito',
-                                          fontSize: 17,
-                                          color: Colors.white,
-                                        ),
-                                      ),
-                                      AutoSizeText(snapshot.data[index].stadiumName,
-                                        style: TextStyle(
-                                          fontFamily: 'Nunito',
-                                          fontSize: 17,
-                                          color: Colors.white,
-                                        ),
-                                      ),
-                                    ],
+
+                                  stringCheckH('Stadium Name: '),
+                                  SizedBox(
+                                    height:10,
                                   ),
+                                  stringCheck(snapshot.data[index].stadiumName),
+
+
 
 
                                   SizedBox(
@@ -250,19 +212,9 @@ class _InfoScreenState extends State<InfoScreen> {
                                     height: 30,
                                   ),
 
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: <Widget>[
-                                      AutoSizeText("Jersey: ",
-                                        style: TextStyle(
-                                          fontFamily: 'Nunito',
-                                          fontSize: 17,
-                                          color: Colors.white,
-                                        ),
-                                      ),
-                                    ],
 
-                                  ),
+                                  stringCheckH('Jersey'),
+
 
 
                                   SizedBox(
@@ -358,6 +310,73 @@ class _InfoScreenState extends State<InfoScreen> {
       await launch(url);
     } else {
       throw 'Could not launch $url';
+    }
+  }
+
+  stringCheck(String s) {
+    if(s==null || s=='') {
+      return Wrap(
+        direction: Axis.horizontal,
+        children: <Widget>[
+          Text('N/A',
+            style: TextStyle(
+              fontSize: 17,
+              fontFamily: 'Condensed',
+              color: Colors.black,
+
+            ),
+          )
+        ],
+      );
+    }
+    else {
+      return Wrap(
+        direction: Axis.horizontal,
+        children: <Widget>[
+          Text(s,
+            style: TextStyle(
+              fontSize: 19,
+              fontFamily: 'Condensed',
+              color: Colors.black,
+
+            ),
+          )
+        ],
+      );
+    }
+  }
+
+
+  stringCheckH(String s) {
+    if(s==null || s=='') {
+      return Wrap(
+        direction: Axis.horizontal,
+        children: <Widget>[
+          Text('N/A',
+            style: TextStyle(
+              fontSize: 17,
+              fontFamily: 'Condensed',
+              color: Colors.black,
+
+            ),
+          )
+        ],
+      );
+    }
+    else {
+      return Wrap(
+        direction: Axis.horizontal,
+        children: <Widget>[
+          Text(s,
+            style: TextStyle(
+              fontSize: 24,
+              fontFamily: 'Condensed',
+              color: Colors.white,
+
+            ),
+          )
+        ],
+      );
     }
   }
 

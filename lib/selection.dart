@@ -48,15 +48,33 @@ class _SelectionPageState extends State<SelectionPage> {
         items: [
           BottomNavigationBarItem(
             icon: Icon(const IconData(0xe900, fontFamily: 'soccerBall')),
-            title: Text('Matches'),
+            title: Text('Matches',
+              style: TextStyle(
+                letterSpacing: 2,
+                fontFamily: 'Bangers',
+                fontSize: 15,
+              ),
+            ),
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.info_outline),
-            title: Text('Team Info'),
+            title: Text('Team Info',
+              style: TextStyle(
+                letterSpacing: 2,
+                fontFamily: 'Bangers',
+                fontSize: 15,
+              ),
+            ),
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.people),
-            title: Text('Team Roster'),
+            title: Text('Team Roster',
+              style: TextStyle(
+                letterSpacing: 2,
+                fontFamily: 'Bangers',
+                fontSize: 15,
+              ),
+            ),
           ),
         ],
 //        unselectedItemColor: Colors.grey,
@@ -120,7 +138,7 @@ class _SelectionPageState extends State<SelectionPage> {
             'SCOREBOARD',
 
           style: TextStyle(
-            fontFamily: 'Vibes',
+            fontFamily: "Bangers",
             fontSize: 40,
             color: Colors.white,
           ),

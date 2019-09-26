@@ -30,7 +30,7 @@ class FrontPage extends StatelessWidget {
                 Text(
                     'SCOREBOARD',
                   style: TextStyle(
-                    fontFamily: "Vibes",
+                    fontFamily: "Bangers",
                     color: Colors.white,
                     letterSpacing: 3,
                     fontSize: 50

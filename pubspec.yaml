@@ -93,6 +93,30 @@ flutter:
        fonts:
          - asset: fonts/Farro-Regular.ttf
 
+
+
+
+     - family: Marker
+       fonts:
+         - asset: fonts/PermanentMarker-Regular.ttf
+
+
+     - family: Bangers
+       fonts:
+         - asset: fonts/Bangers-Regular.ttf
+
+     - family: Gochi
+       fonts:
+         - asset: fonts/GochiHand-Regular.ttf
+
+     - family: Condensed
+       fonts:
+         - asset: fonts/RobotoCondensed-Regular.ttf
+
+     - family: Mono
+       fonts:
+         - asset: fonts/RobotoMono-Regular.ttf
+
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages

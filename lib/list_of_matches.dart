@@ -75,8 +75,8 @@ class _ListOfMatchesState extends State<ListOfMatches>{
                             child: Text(
                                 'PREVIOUS MATCHES',
                               style: TextStyle(
-                                fontSize: 30,
-                                fontFamily: 'Nunito',
+                                fontSize: 40,
+                                fontFamily: 'Bangers',
                                 color: Colors.white,
                               ),
                             )
@@ -115,51 +115,46 @@ class _ListOfMatchesState extends State<ListOfMatches>{
 
                                     pMatchColumnList.add(
                                       Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        crossAxisAlignment: CrossAxisAlignment.center,
                                         children: <Widget>[
 
                                           Padding(
                                             padding: const EdgeInsets.symmetric(
                                               vertical: 2,
                                             ),
-                                            child: Row(
-                                              mainAxisAlignment: MainAxisAlignment.center,
+
+                                            child: Wrap(
+                                              direction: Axis.horizontal,
                                               children: <Widget>[
                                                 FittedBox(
                                                   fit: BoxFit.fitWidth,
                                                   child: Text(
-
                                                     "${snapshot.data[index].eventPrev}",
-
                                                     style: TextStyle(
-                                                      fontFamily: 'Nunito',
-
-                                                      color: Colors.black,
-
+                                                      fontSize: 22,
+                                                      fontFamily: 'Condensed',
+                                                      color: Colors.white,
                                                     ),
                                                   ),
                                                 ),
-
                                               ],
-
                                             ),
-                                          ),
 
+                                          ),
 
 
                                           Padding(
                                             padding: const EdgeInsets.symmetric(
                                               vertical: 2,
                                             ),
-                                            child: Row(
-                                              mainAxisAlignment: MainAxisAlignment.center,
+                                            child: Wrap(
+                                              direction: Axis.horizontal,
                                               children: <Widget>[
-
-                                                AutoSizeText(
+                                                Text(
                                                   "${snapshot.data[index].homeScorePrev} - ${snapshot.data[index].awayScorePrev}",
                                                   style: TextStyle(
-                                                    fontFamily: 'Nunito',
-
+                                                    fontSize: 19,
+                                                    fontFamily: 'Condensed',
                                                     color: Colors.black,
                                                   ),
                                                 ),
@@ -174,21 +169,19 @@ class _ListOfMatchesState extends State<ListOfMatches>{
                                             padding: const EdgeInsets.symmetric(
                                               vertical: 2,
                                             ),
-                                            child: Row(
-                                              mainAxisAlignment: MainAxisAlignment.center,
+                                            child: Wrap(
+                                              direction: Axis.horizontal,
                                               children: <Widget>[
                                                 Text(snapshot.data[index].datePrev,
                                                   style: TextStyle(
-
-                                                    fontFamily: 'Nunito',
+                                                    fontSize: 17,
+                                                    fontFamily: 'Condensed',
                                                     color: Colors.black,
                                                   ),
                                                 ),
                                               ],
                                             ),
                                           ),
-
-
 
 
                                           Divider(
@@ -217,13 +210,13 @@ class _ListOfMatchesState extends State<ListOfMatches>{
 
                             Container(
                                 padding: EdgeInsets.symmetric(
-                                  vertical: 5,
+                                  vertical: 15,
                                 ),
                                 child: Text(
                                   'UPCOMING MATCHES',
                                   style: TextStyle(
-                                    fontSize: 30,
-                                    fontFamily: 'Nunito',
+                                    fontSize: 40,
+                                    fontFamily: 'Bangers',
                                     color: Colors.white,
                                   ),
                                 )
@@ -236,7 +229,6 @@ class _ListOfMatchesState extends State<ListOfMatches>{
                               height: 10,
                               thickness: 1,
                             ),
-
 
 
 
@@ -256,41 +248,38 @@ class _ListOfMatchesState extends State<ListOfMatches>{
                                       for(index=0;index< snap.data.length; index++){
                                         nMatchColumnList.add(
                                           Column(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            crossAxisAlignment: CrossAxisAlignment.center,
                                             children: <Widget>[
-                                              Row(
-                                                mainAxisAlignment: MainAxisAlignment.center,
+                                              Wrap(
+                                                direction: Axis.horizontal,
                                                 children: <Widget>[
-                                                  AutoSizeText(
+                                                  Text(
                                                     snap.data[index].eventNext,
                                                     style: TextStyle(
-
-                                                      fontFamily: 'Nunito',
-                                                      color: Colors.black,
+                                                      fontSize: 22,
+                                                      fontFamily: 'Condensed',
+                                                      color: Colors.white,
                                                     ),
                                                   ),
                                                 ],
                                               ),
 
-
                                               Padding(
                                                 padding: const EdgeInsets.symmetric(
                                                     vertical: 4.0),
-                                                child: Row(
-                                                  mainAxisAlignment: MainAxisAlignment.center,
+                                                child: Wrap(
+                                                  direction: Axis.horizontal,
                                                   children: <Widget>[
-                                                    AutoSizeText(snap.data[index].dateNext,
+                                                   Text(snap.data[index].dateNext,
                                                       style: TextStyle(
-
-                                                        fontFamily: 'Nunito',
+                                                        fontSize: 17,
+                                                        fontFamily: 'Condensed',
                                                         color: Colors.black,
                                                       ),
                                                     ),
                                                   ],
                                                 ),
                                               ),
-
-
 
                                               Divider(
                                                 color: Color(0xff18a0ff),

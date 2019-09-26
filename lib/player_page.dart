@@ -57,7 +57,12 @@ class PlayerPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('SCOREBOARD', style: TextStyle(fontSize: 40, fontFamily: 'Vibes')),
+        title: Text('SCOREBOARD',
+            style: TextStyle(
+                fontSize: 40,
+              fontFamily: "Bangers",
+            )
+        ),
         centerTitle: true,
         backgroundColor: Color(0xff18a0ff),
       ),

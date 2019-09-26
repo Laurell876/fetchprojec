@@ -160,7 +160,7 @@ class _HomePageState extends State<HomePage> {
   Widget setImage(String url) {
     if (url != null) {
       return Container(
-        height:40,
+        height: 70,
         child: CachedNetworkImage(
           imageUrl: url,
           placeholder: (context, url) => new CircularProgressIndicator(),
@@ -227,7 +227,7 @@ class _HomePageState extends State<HomePage> {
             'SCOREBOARD',
           style: TextStyle(
             fontSize: 40,
-            fontFamily: 'Vibes',
+            fontFamily: "Bangers",
           ),
         ),
         centerTitle: true,
@@ -275,18 +275,29 @@ class _HomePageState extends State<HomePage> {
                               horizontal: 5,
                               vertical: 10,
                             ),
-                            child: Row(
 
-                              mainAxisAlignment: MainAxisAlignment.start,
 
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: <Widget>[
-                                //function that sets image of avatar
-                                setImage(userData[index]['strTeamBadge']),
+                                Wrap(
+                                  direction: Axis.horizontal,
+                                  children: <Widget>[
+                                    //function that sets image of avatar
+                                    setImage(userData[index]['strTeamBadge']),
+                                    SizedBox(
+                                      width: 40,
+                                    ),
+                                        Text(userData[index]['strTeam'],
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 30,
+                                            fontFamily: 'Bangers',
+                                          ),
+                                        )
+                                      ],
 
-                                SizedBox(
-                                  width: 40,
                                 ),
-                                Text(userData[index]['strTeam']),
                               ],
                             ),
                           ),

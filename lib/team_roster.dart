@@ -113,14 +113,14 @@ class _TeamRosterState extends State<TeamRoster> {
                                       snapshot.data[index].name,
                                     style: TextStyle(
                                       color: Colors.white,
-                                      fontFamily: 'Nunito',
-                                      fontSize: 15,
+                                      fontFamily: 'Bangers',
+                                      fontSize: 17,
                                     ),
                                   ),
                                   AutoSizeText(
                                       snapshot.data[index].position,
                                       style: TextStyle(
-                                        fontFamily: 'Nunito',
+                                        fontFamily: 'Bangers',
                                       ),
                                   ),
                                 ],
@@ -138,6 +138,38 @@ class _TeamRosterState extends State<TeamRoster> {
         },
       ),
     );
+  }
+  stringCheck(String s) {
+    if(s==null || s=='') {
+      return Wrap(
+        direction: Axis.horizontal,
+        children: <Widget>[
+          Text('N/A',
+            style: TextStyle(
+              fontSize: 17,
+              fontFamily: 'Condensed',
+              color: Colors.black,
+
+            ),
+          )
+        ],
+      );
+    }
+    else {
+      return Wrap(
+        direction: Axis.horizontal,
+        children: <Widget>[
+          Text(s,
+            style: TextStyle(
+              fontSize: 19,
+              fontFamily: 'Condensed',
+              color: Colors.black,
+
+            ),
+          )
+        ],
+      );
+    }
   }
 
 
