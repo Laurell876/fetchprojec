@@ -41,7 +41,7 @@ class _InfoScreenState extends State<InfoScreen> {
         child: ClipRRect(
           borderRadius: new BorderRadius.circular(20.0),
           child: CachedNetworkImage(
-
+            height:190,
             imageUrl: url,
             placeholder: (context, url) => Container(
               height:20,
