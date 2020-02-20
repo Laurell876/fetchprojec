@@ -6,7 +6,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'dart:async';
 import 'player_page.dart';
-import 'search Results.dart';
+import 'search_Results.dart';
 import 'frontPage.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 
